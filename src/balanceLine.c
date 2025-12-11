@@ -14,8 +14,12 @@
 #include <balanceLine.h>
 
 void balanceLine(FILE* mestre, FILE* transacoes) {
-    Mercadoria mercadoria;
-    TransacaoMercadoria transacao;
+    if(mestre == NULL || transacoes == NULL) {
+        return;
+    }
+
+    Mercadoria mercadoria = {0};
+    TransacaoMercadoria transacao = {0};
     FILE* novo_mestre = fopen("novo_mestre.bin", "wb");
 
     if(novo_mestre != NULL) {
@@ -35,8 +39,9 @@ void balanceLine(FILE* mestre, FILE* transacoes) {
                 else if(mercadoria.codigo > transacao.codigo) {
                     if(transacao.tipo == 'I') {
                         inserir_transacao_mestre(novo_mestre, transacao);
-                        leu_transacoes = ler_transacao(transacoes, &transacao);
                     }
+
+                    leu_transacoes = ler_transacao(transacoes, &transacao);
                 }
                 else {
                     if(transacao.tipo == 'A') {
@@ -49,23 +54,23 @@ void balanceLine(FILE* mestre, FILE* transacoes) {
                         leu_mestre = ler_mercadoria(mestre, &mercadoria);
                         leu_transacoes = ler_transacao(transacoes, &transacao);
                     }
+                    else {
+                        // Tipo inválido: avança em ambos os arquivos para evitar loop infinito
+                        leu_mestre = ler_mercadoria(mestre, &mercadoria);
+                        leu_transacoes = ler_transacao(transacoes, &transacao);
+                    }
                 }
 
             } else if(leu_transacoes) {
                 if(transacao.tipo == 'I') {
                     inserir_transacao_mestre(novo_mestre, transacao);
-                    leu_transacoes = ler_transacao(transacoes, &transacao);
                 }
+                // Sempre avança nas transações, mesmo se não for inserção
+                leu_transacoes = ler_transacao(transacoes, &transacao);
             } else {
                 inserir_mercadoria(novo_mestre, mercadoria);
                 leu_mestre = ler_mercadoria(mestre, &mercadoria);
             }
-            
-            // Remover estas quatro linhas: isto é para "depuração".
-            printf("%d %d \n", leu_mestre, leu_transacoes);
-            imprimir_mercadoria(mercadoria);
-            imprimir_transacao(transacao);
-            while(getchar() != '\n');
         }
 
         fclose(novo_mestre);
