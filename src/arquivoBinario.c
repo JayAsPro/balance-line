@@ -15,28 +15,40 @@
 #include <arquivoBinario.h>
 
 void inserir_mercadoria(FILE* arquivo, Mercadoria mercadoria) {
-    fwrite(&mercadoria, sizeof(Mercadoria), 1, arquivo);
+    if(arquivo != NULL) {
+        fwrite(&mercadoria, sizeof(Mercadoria), 1, arquivo);
+    }
 }
 
 void inserir_transacao_mestre(FILE* arquivo, TransacaoMercadoria transacao) {
-    Mercadoria mercadoria;
+    if(arquivo != NULL) {
+        Mercadoria mercadoria;
 
-    mercadoria.codigo = transacao.codigo;
-    strcpy(mercadoria.nome, transacao.nome);
-    mercadoria.quantidade = transacao.quantidade;
+        mercadoria.codigo = transacao.codigo;
+        strcpy(mercadoria.nome, transacao.nome);
+        mercadoria.quantidade = transacao.quantidade;
 
-    fwrite(&mercadoria, sizeof(Mercadoria), 1, arquivo);
+        fwrite(&mercadoria, sizeof(Mercadoria), 1, arquivo);
+    }
 }
 
 void inserir_transacao(FILE* arquivo, TransacaoMercadoria transacao) {
-    fwrite(&transacao, sizeof(TransacaoMercadoria), 1, arquivo);
+    if(arquivo != NULL) {
+        fwrite(&transacao, sizeof(TransacaoMercadoria), 1, arquivo);
+    }
 }
 
 int ler_mercadoria(FILE* arquivo, Mercadoria* mercadoria) {
+    if(arquivo == NULL || mercadoria == NULL) {
+        return 0;
+    }
     return fread(mercadoria, sizeof(Mercadoria), 1, arquivo);
 }
 
 int ler_transacao(FILE* arquivo, TransacaoMercadoria* transacao) {
+    if(arquivo == NULL || transacao == NULL) {
+        return 0;
+    }
     return fread(transacao, sizeof(TransacaoMercadoria), 1, arquivo);
 }
 
