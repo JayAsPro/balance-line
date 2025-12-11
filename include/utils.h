@@ -1,0 +1,21 @@
+/*
+    Alunos: João Vitor Assumpção Proença
+            João Vitor Spala
+    Disciplina: Programação com Arquivos
+    Professora: Isabel Leite Cafezeiro
+
+    TRABALHO 2 - Balance Line
+
+    Funções auxiliares para tarefas básicas.
+*/
+
+#ifndef UTILS_H
+#define UTILS_H
+
+void limpar_buffer(void);
+
+void pausar(void);
+
+void limpar_tela(void);
+
+#endif
