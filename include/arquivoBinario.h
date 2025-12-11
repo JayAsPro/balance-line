@@ -13,32 +13,32 @@
 #ifndef ARQUIVOBINARIO_H
 #define ARQUIVOBINARIO_H
 
-typedef struct Sproduto {
+typedef struct Smercadoria {
     int codigo;
     char nome[32];
     int quantidade;
-} Produto;
+} Mercadoria;
 
-typedef struct Stransacao_produto {
+typedef struct Stransacao_mercadoria {
     int codigo;
     char tipo;
     char nome[32];
     int quantidade;
-} TransacaoProduto;
+} TransacaoMercadoria;
 
-void inserir_produto(FILE* arquivo, Produto produto);
+void inserir_mercadoria(FILE* arquivo, Mercadoria mercadoria);
 
-void inserir_transacao_mestre(FILE* arquivo, TransacaoProduto transacao);
+void inserir_transacao_mestre(FILE* arquivo, TransacaoMercadoria transacao);
 
-void inserir_transacao(FILE* arquivo, TransacaoProduto transacao);
+void inserir_transacao(FILE* arquivo, TransacaoMercadoria transacao);
 
-int ler_produto(FILE* arquivo, Produto* produto);
+int ler_mercadoria(FILE* arquivo, Mercadoria* mercadoria);
 
-int ler_transacao(FILE* arquivo, TransacaoProduto* transacao);
+int ler_transacao(FILE* arquivo, TransacaoMercadoria* transacao);
 
-void imprimir_produto(Produto produto);
+void imprimir_mercadoria(Mercadoria mercadoria);
 
-void imprimir_transacao(TransacaoProduto transacao);
+void imprimir_transacao(TransacaoMercadoria transacao);
 
 void dados_teste();
 

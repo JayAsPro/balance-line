@@ -14,37 +14,37 @@
 #include <utils.h>
 #include <arquivoBinario.h>
 
-void inserir_produto(FILE* arquivo, Produto produto) {
-    fwrite(&produto, sizeof(Produto), 1, arquivo);
+void inserir_mercadoria(FILE* arquivo, Mercadoria mercadoria) {
+    fwrite(&mercadoria, sizeof(Mercadoria), 1, arquivo);
 }
 
-void inserir_transacao_mestre(FILE* arquivo, TransacaoProduto transacao) {
-    Produto produto;
+void inserir_transacao_mestre(FILE* arquivo, TransacaoMercadoria transacao) {
+    Mercadoria mercadoria;
 
-    produto.codigo = transacao.codigo;
-    strcpy(produto.nome, transacao.nome);
-    produto.quantidade = transacao.quantidade;
+    mercadoria.codigo = transacao.codigo;
+    strcpy(mercadoria.nome, transacao.nome);
+    mercadoria.quantidade = transacao.quantidade;
 
-    fwrite(&produto, sizeof(Produto), 1, arquivo);
+    fwrite(&mercadoria, sizeof(Mercadoria), 1, arquivo);
 }
 
-void inserir_transacao(FILE* arquivo, TransacaoProduto transacao) {
-    fwrite(&transacao, sizeof(TransacaoProduto), 1, arquivo);
+void inserir_transacao(FILE* arquivo, TransacaoMercadoria transacao) {
+    fwrite(&transacao, sizeof(TransacaoMercadoria), 1, arquivo);
 }
 
-int ler_produto(FILE* arquivo, Produto* produto) {
-    return fread(produto, sizeof(Produto), 1, arquivo);
+int ler_mercadoria(FILE* arquivo, Mercadoria* mercadoria) {
+    return fread(mercadoria, sizeof(Mercadoria), 1, arquivo);
 }
 
-int ler_transacao(FILE* arquivo, TransacaoProduto* transacao) {
-    return fread(transacao, sizeof(TransacaoProduto), 1, arquivo);
+int ler_transacao(FILE* arquivo, TransacaoMercadoria* transacao) {
+    return fread(transacao, sizeof(TransacaoMercadoria), 1, arquivo);
 }
 
-void imprimir_produto(Produto produto) {
-    printf("%d | %s | %d\n", produto.codigo, produto.nome, produto.quantidade);
+void imprimir_mercadoria(Mercadoria mercadoria) {
+    printf("%d | %s | %d\n", mercadoria.codigo, mercadoria.nome, mercadoria.quantidade);
 }
 
-void imprimir_transacao(TransacaoProduto transacao) {
+void imprimir_transacao(TransacaoMercadoria transacao) {
     printf("%d | %c | %s | %d\n", transacao.codigo, transacao.tipo, transacao.nome, transacao.quantidade);
 }
 
@@ -54,15 +54,15 @@ void dados_teste() {
     FILE* transacoes = fopen("transacoes.bin", "wb");
 
     if(mestre != NULL && transacoes != NULL) {
-        Produto vet_produtos[6] = {{101, "prego", 20}, {102, "martelo", 2}, {120, "parafuso", 30},
+        Mercadoria vet_mercadorias[6] = {{101, "prego", 20}, {102, "martelo", 2}, {120, "parafuso", 30},
                                {122, "porca", 44}, {130, "chave inglesa", 3}, {133, "alicate", 1}};
 
-        TransacaoProduto vet_transacoes[8] ={{101, 'E', "", 0}, {102, 'A', "martelo", 4}, {110, 'I', "arruela", 5},
+        TransacaoMercadoria vet_transacoes[8] ={{101, 'E', "", 0}, {102, 'A', "martelo", 4}, {110, 'I', "arruela", 5},
                                          {123, 'I', "chave de boca", 1}, {130, 'A', "chave inglesa", 5},
                                          {133, 'E', "", 0}, {134, 'I', "arrebite", 8}, {135, 'I', "arame", 3}};
         
-        fwrite(&vet_produtos, sizeof(Produto), 6, mestre);
-        fwrite(&vet_transacoes, sizeof(TransacaoProduto), 8, transacoes);
+        fwrite(&vet_mercadorias, sizeof(Mercadoria), 6, mestre);
+        fwrite(&vet_transacoes, sizeof(TransacaoMercadoria), 8, transacoes);
 
         fclose(mestre);
         fclose(transacoes);

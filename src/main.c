@@ -36,15 +36,15 @@ int main(void) {
         printf(" Mestre\n--------\n");
 
         for(int i = 0; i < 6; i++) {
-            Produto produto;
-            ler_produto(mestre, &produto);
-            imprimir_produto(produto);
+            Mercadoria mercadoria;
+            ler_mercadoria(mestre, &mercadoria);
+            imprimir_mercadoria(mercadoria);
         }
 
         printf("\n Transcacoes\n-------------\n");
 
         for(int i = 0; i < 8; i++) {
-            TransacaoProduto transacao;
+            TransacaoMercadoria transacao;
             ler_transacao(transacoes, &transacao);
             imprimir_transacao(transacao);
         }
@@ -57,15 +57,15 @@ int main(void) {
 
         if(novo_mestre != NULL) {
             int leu;
-            Produto produto;
+            Mercadoria mercadoria;
 
             rewind(novo_mestre);
 
             printf("\n Novo Mestre\n-------------\n");
 
             do {
-                leu = ler_produto(novo_mestre, &produto);
-                imprimir_produto(produto);
+                leu = ler_mercadoria(novo_mestre, &mercadoria);
+                imprimir_mercadoria(mercadoria);
             } while(leu);
         }
 
