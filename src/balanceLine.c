@@ -43,6 +43,7 @@ void balanceLine(FILE* mestre, FILE* transacoes) {
 
                     leu_transacoes = ler_transacao(transacoes, &transacao);
                 }
+                // mesmo codigo
                 else {
                     if(transacao.tipo == 'A') {
                         inserir_transacao_mestre(novo_mestre, transacao);
@@ -55,8 +56,8 @@ void balanceLine(FILE* mestre, FILE* transacoes) {
                         leu_transacoes = ler_transacao(transacoes, &transacao);
                     }
                     else {
-                        // Tipo inválido: avança em ambos os arquivos para evitar loop infinito
-                        leu_mestre = ler_mercadoria(mestre, &mercadoria);
+                        // Tipo inválido: ignora a transação e avança apenas nela
+                        // A mercadoria do mestre será processada no próximo loop
                         leu_transacoes = ler_transacao(transacoes, &transacao);
                     }
                 }
